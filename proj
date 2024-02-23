@@ -1,0 +1,121 @@
+import os, sys
+from pathlib import Path
+
+def NewProject():
+	if len(sys.argv) != 3:
+		print("Provide parent folder and target folder")
+		exit(0)
+	
+	path = f"/home/shlomi/git/{sys.argv[1]}"
+	inc_prefix = ""
+	if sys.argv[1] != "c":
+		inc_prefix = "../include/"
+	
+	dirs_list = ('include', 'src', 'test', 'bin')
+	
+	comment = """
+/* Status : 
+ * Reviewer : 
+ * Description : 
+	
+ * Arguments : 
+	
+ * Return : 
+ */
+"""
+
+	make_file = f"""
+.PHONY: debug release
+
+CC = gcc
+INC = ../../include
+TEST = ../../test
+REL = ../../bin/release
+DEB = ../../bin/debug
+TARGET = {sys.argv[2]}
+
+all : release debug
+release : CFLAGS = -ansi -pedantic-errors -Wall -Wextra -DNDEBUG -O3
+debug : CFLAGS = -ansi -pedantic-errors -Wall -Wextra -g
+
+release : main_r.o $(TARGET)_r.o 
+	$(CC) $(CFLAGS) $? -o $(REL)/$(TARGET).out
+
+debug : main_d.o $(TARGET)_d.o 
+	$(CC) $(CFLAGS) $? -o $(DEB)/$(TARGET).out
+
+
+main_r.o : $(TEST)/$(TARGET)_test.c
+	$(CC) $(CFLAGS) -c $? -o $@
+
+$(TARGET)_r.o : $(TARGET).c
+	$(CC) $(CFLAGS) -c $? -o $@
+
+main_d.o : $(TEST)/$(TARGET)_test.c
+	$(CC) $(CFLAGS) -c $? -o $@
+
+$(TARGET)_d.o : $(TARGET).c
+	$(CC) $(CFLAGS) -c $? -o $@
+	
+clean:
+	rm -f *.o ../../bin/debug/$(TARGET).out ../../bin/release/$(TARGET).out
+
+"""
+
+	h_file = f"#ifndef __{sys.argv[2].upper()}_H_CR4__ \n" + \
+			 f"#define __{sys.argv[2].upper()}_H_CR4__ \n\n" + \
+			  "#include <stdio.h> /* Used for printing functions */\n" + \
+			  "#include <stdlib.h> /* Used for malloc and free functions */\n" + \
+			  "#include <stddef.h> /* Used for size_t type */\n" + \
+			  "#include <string.h> /* Used for string functions */\n" + \
+			   comment + "\n\n" + \
+			 f"#endif /* __{sys.argv[2].upper()}_H_CR4__ */\n"
+	c_file = f"#include \"../{inc_prefix}{sys.argv[2]}.h\"\n" + comment + "\n\n"
+
+
+	test_file = f"#include \"{inc_prefix}{sys.argv[2]}.h\"\n" + \
+				 "\n" + \
+				 "int main(void)\n" + \
+				 "{\n" + \
+				 "	\n" + \
+				 "	return (0);\n" + \
+				 "}\n\n"
+	
+
+	if os.path.exists(f"{path}"):
+		if sys.argv[1] == "c":
+			os.mkdir(f"{path}/{sys.argv[2]}")
+			print("Created " + path)
+			with open(f"{path}/{sys.argv[2]}/{sys.argv[2]}.h", "w") as h:
+				h.write(h_file)
+			with open(f"{path}/{sys.argv[2]}/{sys.argv[2]}.c", "w") as c:
+				c.write(c_file)
+			with open(f"{path}/{sys.argv[2]}/{sys.argv[2]}_test.c", "w") as t:
+				t.write(test_file)
+		
+		else:
+			currpath = f"{path}/src/{sys.argv[2]}"
+			os.mkdir(currpath)
+			print("Created Dir " + currpath)
+			
+			with open(f"{path}/include/{sys.argv[2]}.h", "w") as h:
+				h.write(h_file)
+				print("|- Created File " + f"{path}/include/{sys.argv[2]}.h")
+			
+			with open(f"{path}/src/{sys.argv[2]}/{sys.argv[2]}.c", "w") as c:
+				c.write(c_file)
+				print("|- Created File " + f"{path}/src/{sys.argv[2]}/{sys.argv[2]}.c")
+				
+			with open(f"{path}/src/{sys.argv[2]}/Makefile", "w") as m:
+				m.write(make_file)
+				print("|- Created File " + f"{path}/src/{sys.argv[2]}/Makefile")
+			
+			with open(f"{path}/test/{sys.argv[2]}_test.c", "w") as t:
+				t.write(test_file)
+				print("|- Created File " + f"{path}/test/{sys.argv[2]}_test.c")
+	
+NewProject()
+
+
+
+
