@@ -42,17 +42,21 @@ put the password that john found "iloveyou1"
 30. listen with nc: nc -l 32340
 31. we got reverse shell on the user. ls - and ther's the 3rd flag.
 
-########################################################################################################################################################################
-															more pentest stuff with nmap:
+##############################################################################################################																		more pentest stuff with nmap:
 1. git clone https://github.com/vulnersCom/nmap-vulners.git
 2. cd /usr/share/nmap/scripts/
-3. nmap -sV --script nmap-vulners/ 151.101.131.5 -p 80
-4. nmap -sV --script nmap-vulners/ 151.101.131.5
-
+3. nmap -sV --script nmap-vulners/ 151.101.131.5 
 ########################################################################################################
 															usefull stuff
 1. kill a process that use specific port: sudo kill -9 `sudo lsof -t -i:9001`
+2. find process pid and name of service using it:			  sudo ss -lptn 'sport = :8001'
+3. stop the service: sudo systemctl stop inetd.service
 
+
+1. get access points windwos: Netsh wlan show profile
+2. get the access point password: Netsh wlan show profile name ="tp link"  key=clear
+
+#########################################################################################################
 
 
 
