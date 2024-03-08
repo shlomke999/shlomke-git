@@ -42,11 +42,11 @@ put the password that john found "iloveyou1"
 30. listen with nc: nc -l 32340
 31. we got reverse shell on the user. ls - and ther's the 3rd flag.
 
-##############################################################################################################																		more pentest stuff with nmap:
+###################################################################										more nmap pentest techniqes:
 1. git clone https://github.com/vulnersCom/nmap-vulners.git
 2. cd /usr/share/nmap/scripts/
 3. nmap -sV --script nmap-vulners/ 151.101.131.5 
-########################################################################################################
+#################################################################
 															usefull stuff
 1. kill a process that use specific port: sudo kill -9 `sudo lsof -t -i:9001`
 2. find process pid and name of service using it:			  sudo ss -lptn 'sport = :8001'
