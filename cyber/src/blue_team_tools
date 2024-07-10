@@ -1,0 +1,15 @@
+vuln scan/mgmt tools:
+nuclei
+nessus
+nexpose
+openvas
+
+network scan tools:
+nmap
+zmap
+angry ip
+masscan
+
+phishing catcher:
+מזהה דומיינים חשודים על ידי זיהוי הנפקת תעודות tls חשודות
+
