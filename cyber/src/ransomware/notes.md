@@ -4,7 +4,7 @@
 
 4. Generating a symmetric key: openssl enc -pbkdf2 -aes-128-ecb -k my-secret-passphrase -P
 5. put the key in a file sym_key.pem
-6. encrypt file with the symetric key:    openssl enc -aes-128-ecb -in cleartext.txt -K $(cat sym_key.pem) -out ciphertext.txt
+6. encrypt file with the symetric key:    openssl enc -aes-128-ecb -in cleartext.txt -K $(cat sym_key.pem) -out cyphertext.txt
 7. (to decrypt with that symetric key run:  openssl enc -d -aes-128-ecb -in ciphertext.txt -K $(cat sym_key.pem))
 
 8. encrypt the symetric key with the public key from stage 3:   openssl pkeyutl -encrypt -inkey public.pem -pubin -in sym_key.pem -out sym_key.enc
