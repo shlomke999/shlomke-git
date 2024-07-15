@@ -13,3 +13,4 @@ systemctl start wpa_supplicant;
 systemctl start NetworkManager
 
 list of all israeli phone numbers with crunch: crunch 10 10 0123456789 023458 -o phone_numbers -t 05,@@@@@@@
+list of 053 phone numbers : sudo crunch 10 10 0123456789 -o phone_numbers -t 053@@@@@@@
