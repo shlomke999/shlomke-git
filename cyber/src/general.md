@@ -2,4 +2,5 @@
   validation that the user has permissions for that service, and then get back service ticket encrypted with the 
   SPN's password hash. then use a tool like  GetUserSPNs tool, which is often used to perform Kerberoasting 
   attack.
-2.
+  All major open-source tools, like Impacket and Rubeus, request tickets in RC4 encryption type.(easily cracked). 
+3.
