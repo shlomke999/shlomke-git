@@ -44,7 +44,7 @@ learning schemes:
 	   	  												 
 steps to create positive policy:
 1. create a comprehensive policy and attach it to a server
-2.go to policy building->learning and blocking settings->parameters and check all the boxes you want to get learnings for so you can add them to the positive parameters list later
+2.go to policy building->learning and blocking settings->parameters and in learn new parameters choose always
 3. then when that parameter is used you can accept it in the policy building->traffic learning section
 4. then go to parameters list and choose the parameter, and define what values you consider legitimate for that parameter (length, numeric etc), and other stuff will be a violation
 
