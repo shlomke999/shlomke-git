@@ -42,10 +42,29 @@ learning schemes:
 2. always - always create a learning for any new object so the admin can choose to add them
 3. selective -  only stuff like if you defined max length 0f 50MB it will suggest to increase when a longer one appears for the first time
 	   	  												 
-steps to create positive policy:
+steps to create positive policy for parameters (static):
 1. create a comprehensive policy and attach it to a server
 2.go to policy building->learning and blocking settings->parameters and in learn new parameters choose always
-3. then when that parameter is used you can accept it in the policy building->traffic learning section
+3. then when a parameter is used you can accept it in the policy building->traffic learning section
 4. then go to parameters list and choose the parameter, and define what values you consider legitimate for that parameter (length, numeric etc), and other stuff will be a violation
+
+steps to create positive policy for parameters (dynamic - parameter extraction):
+the ways asm extract parameters are: entire form/search in link/xml/search response body
+1. create a comprehensive policy and attach it to a server
+2. go to policy building->learning and blocking settings->file types and choose alwayse learn, then make sure to accept the file type in which the parameters are(php mostly) and also accept one parameter on that page
+3. go to the parameter (parameters->parameters list), choose the parameter and in parameter value type choose dynamic content value
+4.  then a pop up will show to add extraction configuration, choose the file type(php in our case), and in url the php page name (sales.php), and choose extraction method (links,xml,entire form..) and apply the policy
+ then asm will recognize any violations on that parameter.
+
+steps to create positive policy for cookie tempering (seesion hijacking):
+1. create a comprehensive policy and attach it to a server
+2.go to policy building->learning and blocking settings->parameters and in learn new cookies choose selective
+3. then when a cookie is used you can accept it in the policy building->traffic learning section
+4. then go to  application security->headers->cookie list and enforce that cookie to block tempering and not only trigger a violation
+
+steps to create positive policy for http methods:
+1. create a comprehensive policy and attach it to a server
+2. go to policy building->learning and blocking settings->headers and save it
+3. then when forbitten methods are used (the allowed ones are in headers->methods) it will throw a violation/block
 
 
