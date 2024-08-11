@@ -11,7 +11,7 @@ can be integrated with vulnerabilty scaning tools and when those generate a vuln
 data guard - hides sensitive info in server responses to prevent data leak,
 
 
-positive security policy -check if the request has allowed file types, url, and parameters, and if the response has allowed response code.
+positive security policy -check if the request has allowed file types, url length, and parameters, and if the response has allowed response code.
 negative security policy - check if the request violates rfc compliance, if it's trying to avoid detection, or attack signatures, and the response has data leak or attack signatures.
 
 
@@ -19,12 +19,12 @@ security policy workflow: policy name -> policy type (stand alone/parent) -> pol
 policy templates:
 rapid deployment, a manual policy, it's quick to configure, baseline of negative security model, (but can also integrate positive). 
 fundamental - moderate protection, the waf will examine the traffic to enforce filetype, parameter, cookies
-comprehensive - highest protection using positive policy model
+comprehensive - highest protection using positive policy model that only allows what was defined in the policy
 application ready - use predefine template specific to that application
 vulnerabilty baseline assesment template - build policy to fix a vuln found by a third party vuln scanner integrated to the f5
 passive template - a policy that will only log the violation but won't block the traffic.
 
-advance security policy workflow: learning mode->enforcement mode(block/transparent)->app language->server techs->enforcement readiness period->signature staging
+advance security policy workflow: learning mode->enforcement mode(block/transparent)->app language(Unicode)->server techs->enforcement readiness period->signature staging
 learning modes: automatic - observe traffic and accept suggestions while they reach 100%, manual - require admin to accept the suggestion, disable - don't create suggestio
  server technology - linux/apache/ etc
 enforcement readiness period - testing period for the policy for false positives, and to learn the traffic flow
@@ -37,4 +37,15 @@ in the violation details there's a support id so if a legitimate user request is
 
 if we want to block traffic that matches the policy: 1.security policy->blocking (not transparrent) 2. attack signatures->enforced (not staging)
 
+learning schemes:
+1.  wildcard - will not suggest learning . 
+2. always - always create a learning for any new object so the admin can choose to add them
+3. selective -  only stuff like if you defined max length 0f 50MB it will suggest to increase when a longer one appears for the first time
 	   	  												 
+steps to create positive policy:
+1. create a comprehensive policy and attach it to a server
+2.go to policy building->learning and blocking settings->parameters and check all the boxes you want to get learnings for so you can add them to the positive parameters list later
+3. then when that parameter is used you can accept it in the policy building->traffic learning section
+4. then go to parameters list and choose the parameter, and define what values you consider legitimate for that parameter (length, numeric etc), and other stuff will be a violation
+
+
