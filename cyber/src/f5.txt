@@ -1,8 +1,10 @@
+local traffic->virtual servers->security->policies->log profile, there you choose what to log for each server.
+
 waf - check both rquest and response packets,
 parameter tampering, 
 attack signatures to your specific language, 
 ltm - local traffic manager (load balancer),
-security policies (block http delete method allow only get/post/put), 
+security policies (block http delete method allow only get/post/head), 
 the f5 is a proxy - a 3 way handshake is made from the client to the f5, and then from the f5 to the web application.
 api protection,
 bot detection,
@@ -25,7 +27,8 @@ vulnerabilty baseline assesment template - build policy to fix a vuln found by a
 passive template - a policy that will only log the violation but won't block the traffic.
 
 advance security policy workflow: learning mode->enforcement mode(block/transparent)->app language(Unicode)->server techs->enforcement readiness period->signature staging
-learning modes: automatic - observe traffic and accept suggestions while they reach 100%, manual - require admin to accept the suggestion, disable - don't create suggestio
+learning modes: automatic - obser
+ve traffic and accept suggestions while they reach 100%, manual - require admin to accept the suggestion, disable - don't create suggestio
  server technology - linux/apache/ etc
 enforcement readiness period - testing period for the policy for false positives, and to learn the traffic flow
 signature staging - staging period for attack signatures
@@ -67,4 +70,44 @@ steps to create positive policy for http methods:
 2. go to policy building->learning and blocking settings->headers and save it
 3. then when forbitten methods are used (the allowed ones are in headers->methods) it will throw a violation/block
 
+steps to create positive policy for file types:
+1. create a comprehensive policy and attach it to a server
+2.go to policy building->learning and blocking settings->file types and in learn new file types choose always
+3. then when there's a new file type you can accept it in traffic learning, and it will be added to the allowed file types list
 
+logging:
+1. go to event logs->logging profiles to create a new logging profile (if you want to, you can use an existing one too)  
+2. go to each virtual server and in log profile add that logging profile to it so it will log accordingly and press update.
+3. by default only administrative changes are logged localy, and violations and stuff are sent to the remote syslog server.
+ to change it go to options->app security->advance configuration->system variables, search the word send and the variable send_content_events will pop, change it to 1
+
+diff:
+used to check the differences between 2 policies. (the policies must have the same language,protocol,case sensitivity).
+go to security policies->policy diff. after you check the diffs you have auto merge button with various options.
+
+layered policies:
+parent child policies, you can inherit many childs the parend settings and attach them to different servers, the parent can't ne attach to server.
+option 1 - mandatory: attributes in parrent inherit to child and can't be changed in the child policy.
+option 2 - optional: attributes in parrent inherit to child and can be change in child policy
+option3 - none: no inheritence. 
+
+brute force policy:
+1. create a rapid deployment policy and attach it to a server
+2. go to brute force attack prevention, select that policy, and press the create button and put the name of the login page(login.php) in login page
+3. expected http response code is 302, and press create. then fill the detailes as you wish to act
+
+session tracking policy:
+1. create a rapid deployment policy and attach it to a server
+2. go to sessions and logins->session tracking and choose that policy
+3. on session awareness check the enabled button,and create a login page like the 2nd step of brute force policy.
+4. then fill the detailes as you wish. and then you will see in all the requests to that page that there's a session id for tracking it
+5. after the violation threshhold you defined for that page has reached all requests  (even those not triggered a violation) of that session will be logged/blocked (depends if you chose block all/log all requests)
+
+geolocation policy:
+ 1. create a rapid deployment policy and attach it to a server
+2. go to policy list and select that policy, on trust XFF header choose enabled, and write XFF_Russia in the text box
+3.go to geolocation enforcement and and the contries you want to block
+
+dot protection:
+1. ther's a default one, or you can create one in security->dos protection
+2. then go to local traffic->virtual servers, and for each server go to security->policies->dos protection policies and assign the policy you want
