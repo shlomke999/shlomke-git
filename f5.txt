@@ -1,3 +1,5 @@
+local traffic->virtual servers->security->policies->log profile, there you choose what to log for each server.
+
 waf - check both rquest and response packets,
 parameter tampering, 
 attack signatures to your specific language, 
@@ -88,3 +90,20 @@ parent child policies, you can inherit many childs the parend settings and attac
 option 1 - mandatory: attributes in parrent inherit to child and can't be changed in the child policy.
 option 2 - optional: attributes in parrent inherit to child and can be change in child policy
 option3 - none: no inheritence. 
+
+brute force policy:
+1. create a rapid deployment policy and attach it to a server
+2. go to brute force attack prevention, select that policy, and press the create button and put the name of the login page(login.php) in login page
+3. expected http response code is 302, and press create. then fill the detailes as you wish to act
+
+session tracking policy:
+1. create a rapid deployment policy and attach it to a server
+2. go to sessions and logins->session tracking and choose that policy
+3. on session awareness check the enabled button,and create a login page like the 2nd step of brute force policy.
+4. then fill the detailes as you wish. and then you will see in all the requests to that page that there's a session id for tracking it
+5. after the violation threshhold you defined for that page has reached all requests  (even those not triggered a violation) of that session will be logged/blocked (depends if you chose block all/log all requests)
+
+geolocation policy:
+ 1. create a rapid deployment policy and attach it to a server
+2. go to policy list and select that policy, on trust XFF header choose enabled, and write XFF_Russia in the text box
+3.go to geolocation enforcement and and the contries you want to block
