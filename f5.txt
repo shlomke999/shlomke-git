@@ -107,3 +107,7 @@ geolocation policy:
  1. create a rapid deployment policy and attach it to a server
 2. go to policy list and select that policy, on trust XFF header choose enabled, and write XFF_Russia in the text box
 3.go to geolocation enforcement and and the contries you want to block
+
+dot protection:
+1. ther's a default one, or you can create one in security->dos protection
+2. then go to local traffic->virtual servers, and for each server go to security->policies->dos protection policies and assign the policy you want
