@@ -1,6 +1,6 @@
 local traffic->virtual servers->security->policies->log profile, there you choose what to log for each server.
 
-waf - check both rquest and response packets,
+waf -being a proxy can check both rquest and response packets,
 parameter tampering, 
 attack signatures to your specific language, 
 ltm - local traffic manager (load balancer),
