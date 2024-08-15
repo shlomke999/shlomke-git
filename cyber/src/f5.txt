@@ -1,6 +1,7 @@
 local traffic->virtual servers->security->policies->log profile, there you choose what to log for each server.
+security->reporting->application->Pci compliance
 
-waf -being a proxy can check both rquest and response packets,
+waf -being a proxy can check both request and response packets,
 parameter tampering, 
 attack signatures to your specific language, 
 ltm - local traffic manager (load balancer),
@@ -9,7 +10,7 @@ the f5 is a proxy - a 3 way handshake is made from the client to the f5, and the
 api protection,
 bot detection,
 behavior analysis,
-can be integrated with vulnerabilty scaning tools and when those generate a vulnerability report f5 will build a policy to mitigate that vulnerability,
+can be integrated with vulnerability scanning tools and when those generate a vulnerability report f5 will build a policy to mitigate that vulnerability,
 data guard - hides sensitive info in server responses to prevent data leak,
 
 
@@ -77,7 +78,7 @@ steps to create positive policy for file types:
 
 logging:
 1. go to event logs->logging profiles to create a new logging profile (if you want to, you can use an existing one too)  
-2. go to each virtual server and in log profile add that logging profile to it so it will log accordingly and press update.
+2. go to each virtual server (local traffic->virtual sever list)  and in security->policies->log profile add that logging profile to it so it will log accordingly and press update.
 3. by default only administrative changes are logged localy, and violations and stuff are sent to the remote syslog server.
  to change it go to options->app security->advance configuration->system variables, search the word send and the variable send_content_events will pop, change it to 1
 
@@ -86,10 +87,10 @@ used to check the differences between 2 policies. (the policies must have the sa
 go to security policies->policy diff. after you check the diffs you have auto merge button with various options.
 
 layered policies:
-parent child policies, you can inherit many childs the parend settings and attach them to different servers, the parent can't ne attach to server.
-option 1 - mandatory: attributes in parrent inherit to child and can't be changed in the child policy.
-option 2 - optional: attributes in parrent inherit to child and can be change in child policy
-option3 - none: no inheritence. 
+parent child policies, you can inherit many childs the parent settings and attach them to different servers, the parent can't ne attach to server.
+option 1 - mandatory: attributes in parent inherit to child and can't be changed in the child policy.
+option 2 - optional: attributes in parent inherit to child and can be change in child policy
+option3 - none: no inheritance. 
 
 brute force policy:
 1. create a rapid deployment policy and attach it to a server
@@ -99,9 +100,9 @@ brute force policy:
 session tracking policy:
 1. create a rapid deployment policy and attach it to a server
 2. go to sessions and logins->session tracking and choose that policy
-3. on session awareness check the enabled button,and create a login page like the 2nd step of brute force policy.
+3. on session awareness check the enabled button, and create a login page like the 2nd step of brute force policy.
 4. then fill the detailes as you wish. and then you will see in all the requests to that page that there's a session id for tracking it
-5. after the violation threshhold you defined for that page has reached all requests  (even those not triggered a violation) of that session will be logged/blocked (depends if you chose block all/log all requests)
+5. after the violation threshold you defined for that page has reached, all requests  (even those not triggered a violation) of that session will be logged/blocked (depends if you chose block all/log all requests)
 
 geolocation policy:
  1. create a rapid deployment policy and attach it to a server
