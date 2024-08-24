@@ -14,8 +14,8 @@ can be integrated with vulnerability scanning tools and when those generate a vu
 data guard - hides sensitive info in server responses to prevent data leak,
 
 
-positive security policy -check if the request has allowed file types, url length, and parameters, and if the response has allowed response code.
-negative security policy - check if the request violates rfc compliance, if it's trying to avoid detection, or attack signatures, and the response has data leak or attack signatures.
+positive security policy - secure the app with combination of validated sessions,user input, and application response.
+negative security policy - attack signatures, detect evasion.
 
 
 security policy workflow: policy name -> policy type (stand alone/parent) -> policy template (automatic/manual) -> the web server to assign the policy to.
