@@ -20,7 +20,7 @@ negative security policy - attack signatures, detect evasion.
 
 security policy workflow: policy name -> policy type (stand alone/parent) -> policy template (automatic/manual) -> the web server to assign the policy to.
 policy templates:
-rapid deployment, a manual policy, it's quick to configure, baseline of negative security model, (but can also integrate positive). 
+rapid deployment, a manual policy, it's quick to configure, baseline of negative security model, include thousands of attack signatures. 
 fundamental - moderate protection, the waf will examine the traffic to enforce filetype, parameter, cookies
 comprehensive - highest protection using positive policy model that only allows what was defined in the policy
 application ready - use predefine template specific to that application
@@ -50,7 +50,7 @@ steps to create positive policy for parameters (static):
 1. create a comprehensive policy and attach it to a server
 2.go to policy building->learning and blocking settings->parameters and in learn new parameters choose always
 3. then when a parameter is used you can accept it in the policy building->traffic learning section
-4. then go to parameters->parameters list and choose the parameter, and define what values you consider legitimate for that parameter (length, numeric etc), and other stuff will be a violation
+4. then go to parameters->parameters list and choose the parameter, and define what values you consider legitimate for that parameter (length, numeric/alphanumeric, value etc), and other stuff will be a violation
 
 steps to create positive policy for parameters (dynamic - parameter extraction):
 the ways asm extract parameters are: entire form/search in link/xml/search response body
@@ -68,7 +68,7 @@ steps to create positive policy for cookie tempering (seesion hijacking):
 
 steps to create positive policy for http methods:
 1. create a comprehensive policy and attach it to a server
-2. go to policy building->learning and blocking settings->headers and save it
+2. go to policy building->learning and blocking settings->headers and check the boxes for illegal method
 3. then when forbitten methods are used (the allowed ones are in headers->methods) it will throw a violation/block
 
 steps to create positive policy for file types:
@@ -77,7 +77,7 @@ steps to create positive policy for file types:
 3. then when there's a new file type you can accept it in traffic learning, and it will be added to the allowed file types list
 
 logging:
-1. go to event logs->logging profiles to create a new logging profile (if you want to, you can use an existing one too)  
+1. go to event logs->logging profiles to create a new logging profile (or use an existing one)  
 2. go to each virtual server (local traffic->virtual sever list)  and in security->policies->log profile add that logging profile to it so it will log accordingly and press update.
 3. by default only administrative changes are logged localy, and violations and stuff are sent to the remote syslog server.
  to change it go to options->app security->advance configuration->system variables, search the word send and the variable send_content_events will pop, change it to 1
@@ -95,11 +95,11 @@ option3 - none: no inheritance.
 brute force policy:
 1. create a rapid deployment policy and attach it to a server
 2. go to brute force attack prevention, select that policy, and press the create button and put the name of the login page(login.php) in login page
-3. expected http response code is 302, and press create. then fill the detailes as you wish to act
+3. expected http response code is 302, and press create. then fill the detailes as you wish.
 
 session tracking policy:
 1. create a rapid deployment policy and attach it to a server
-2. go to sessions and logins->session tracking and choose that policy
+2. go to session tracking and choose that policy
 3. on session awareness check the enabled button, and create a login page like the 2nd step of brute force policy.
 4. then fill the detailes as you wish. and then you will see in all the requests to that page that there's a session id for tracking it
 5. after the violation threshold you defined for that page has reached, all requests  (even those not triggered a violation) of that session will be logged/blocked (depends if you chose block all/log all requests)
@@ -109,6 +109,6 @@ geolocation policy:
 2. go to policy list and select that policy, on trust XFF header choose enabled, and write XFF_Russia in the text box
 3.go to geolocation enforcement and and the contries you want to block
 
-dot protection:
+dos protection:
 1. ther's a default one, or you can create one in security->dos protection
 2. then go to local traffic->virtual servers, and for each server go to security->policies->dos protection policies and assign the policy you want
