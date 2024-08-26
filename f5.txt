@@ -1,3 +1,6 @@
+when define a policy you can add a trusted ip addresses, and all file types/parameters etc from those addresses will be learned faster and add to the whitelist
+
+
 local traffic->virtual servers->security->policies->log profile, there you choose what to log for each server.
 security->reporting->application->Pci compliance
 
