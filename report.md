@@ -46,8 +46,8 @@ put the password that john found "iloveyou1"
 1. git clone https://github.com/vulnersCom/nmap-vulners.git
 2. cd /usr/share/nmap/scripts/
 3. nmap -sV --script nmap-vulners/ 151.101.131.5 
-#################################################################
-															usefull stuff
+#########################################################################################################################
+									usefull stuff
 1. kill a process that use specific port: sudo kill -9 `sudo lsof -t -i:9001`
 2. find process pid and name of service using it:			  sudo ss -lptn 'sport = :8001'
 3. stop the service: sudo systemctl stop inetd.service
@@ -56,8 +56,16 @@ put the password that john found "iloveyou1"
 1. get access points list windwos: Netsh wlan show profile
 2. get the access point password: Netsh wlan show profile name ="tp link"  key=clear
 
-#########################################################################################################
+###########################################################################################################################
+								ADS:
+	1. alternative data stream are great way to store secret and malicious information undetected, you just create a file myfile.txt
+ 	   and to create ads you create a file myfile.txt:blabla and can store anything you want there. that file cannot be display using dir 
+     	   command or file explorer, and that's why its hard to detect.
+	   - how can you display it: 1. dir /R     2.  (need download) stream64 <filename> will show if there are other streams to that file. 
+           - if you know the name of the ads file (you found it using dir /R or stream64) you can display its content in 2 ways:
+	        1. start notepad myfile.txt:blabla   2. more < myfile.txt:blabla
 
+  ###########################################################################################################################
 
 
 
