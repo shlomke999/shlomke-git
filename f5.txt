@@ -1,3 +1,7 @@
+add custom attack signatures:
+security->options->app security->attack signatures->create
+
+
 when define a policy you can add a trusted ip addresses, and all file types/parameters etc from those addresses will be learned faster and add to the whitelist
 
 
@@ -55,7 +59,7 @@ steps to create positive policy for parameters (static):
 3. then when a parameter is used you can accept it in the policy building->traffic learning section
 4. then go to parameters->parameters list and choose the parameter, and define what values you consider legitimate for that parameter (length, numeric/alphanumeric, value etc), and other stuff will be a violation
 
-steps to create positive policy for parameters (dynamic - parameter extraction):
+ positive policy for parameters (dynamic - parameter extraction):
 the ways asm extract parameters are: entire form/search in link/xml/search response body
 1. create a comprehensive policy and attach it to a server
 2. go to policy building->learning and blocking settings->file types and choose alwayse learn, then make sure to accept the file type in which the parameters are(php mostly) and also accept one parameter on that page
@@ -63,18 +67,18 @@ the ways asm extract parameters are: entire form/search in link/xml/search respo
 4.  then a pop up will show to add extraction configuration, choose the file type(php in our case), and in url the php page name (sales.php), and choose extraction method (links,xml,entire form..) and apply the policy
  then asm will recognize any violations on that parameter/page.
 
-steps to create positive policy for cookie tempering (seesion hijacking):
+ positive policy for cookie tempering (seesion hijacking):
 1. create a comprehensive policy and attach it to a server
 2.go to policy building->learning and blocking settings->cookies and in learn new cookies choose always/selective
 3. then when a cookie is used you can accept it in the policy building->traffic learning section
 4. then go to  application security->headers->cookies list and enforce that cookie to block tempering and not only trigger a violation
 
-steps to create positive policy for http methods:
+ positive policy for http methods:
 1. create a comprehensive policy and attach it to a server
 2. go to policy building->learning and blocking settings->headers and check the boxes for illegal method
 3. then when forbitten methods are used (the allowed ones are in headers->methods) it will throw a violation/block
 
-steps to create positive policy for file types:
+ positive policy for file types:
 1. create a comprehensive policy and attach it to a server
 2.go to policy building->learning and blocking settings->file types and in learn new file types choose always
 3. then when there's a new file type you can accept it in traffic learning, and it will be added to the allowed file types list
