@@ -12,6 +12,8 @@ The received lines are best read from bottom to top. That is, the first "Receive
 Finding the Original Sender
 The easiest way for finding the original sender is by looking for the X-Originating-IP header. This header is important since it tells you the IP address of the computer that had sent the email. If you cannot find the X-Originating-IP header, then you will have to sift through the Received headers to find the sender's IP address.
 
+ Analyze Links and Attachments
+Link Verification: Hover over any links without clicking. Check if the URL matches the organization’s official site.
 
 
 A. Initial Assessment
