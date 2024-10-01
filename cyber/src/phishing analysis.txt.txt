@@ -9,12 +9,24 @@ Received
 •	The received is the most important part of the email header and is usually the most reliable. They form a list of all the servers/computers through which the message traveled in order to reach you.
 The received lines are best read from bottom to top. That is, the first "Received:" line is your own system or mail server. The last "Received:" line is where the mail originated.
 
+Received-SPF: 
+This header represents the Sender Policy Framework (SPF) results,
+which tells whether the sender is a permitted sender or not.
+
+ARC Authentication Results: 
+This header contains email authentication results like
+SPF, DKIM, and DMARC
+
 Finding the Original Sender
 The easiest way for finding the original sender is by looking for the X-Originating-IP header. This header is important since it tells you the IP address of the computer that had sent the email. If you cannot find the X-Originating-IP header, then you will have to sift through the Received headers to find the sender's IP address.
 
  Analyze Links and Attachments
 Link Verification: Hover over any links without clicking. Check if the URL matches the organization’s official site.
 
+spf - a domain can define what servers ae allowed to send emails from it.
+dkim (DomainKeys Identified Mail) - enables domain owners to automatically “sign”
+emails from their domain.
+DMARC - a policy for the reciving server(!) what to do with the email based on the result of the spf and dkim (quarantine, reject, deliver).
 
 A. Initial Assessment
 1.	Sender’s Email Address:
