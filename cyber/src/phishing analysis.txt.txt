@@ -1,4 +1,4 @@
-It is important to know that when reading an email header every line can be forged, so only the Received: lines that are created by your service or computer should be completely trusted.
+It is important to know that when reading an email header every line can be forged, so only the Received: lines that are created by your service should be completely trusted.
 
 •	The from field displays who the message is from, however, this can be easily forged and can be the least reliable.
 
