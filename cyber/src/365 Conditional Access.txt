@@ -1,0 +1,7 @@
+Conditional Access:
+go to 365 admin center, in the menu go to Identity, in the page that opens you have Protection tab on the menu, inside it there's the conditional access tab.
+
+יצירת פוליסת Compliance Devices:
+microsoft intunes->Endpoint security->Device Copliance->Create policy, select platform(windows), name the policy, 
+in Compliance settings open system security tab and choose your compliance demands. once that is done go to create 
+Conditional Access Policy, in grant access check the reqire device to be marked as complient box, and check the grant access box.
